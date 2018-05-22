@@ -1,7 +1,7 @@
-package org.home.mazi.rest;
+package org.home.mazi.javasimplerest.rest;
 
-import org.home.mazi.data.PersonService;
-import org.home.mazi.model.Person;
+import org.home.mazi.javasimplerest.data.PersonService;
+import org.home.mazi.javasimplerest.model.Person;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

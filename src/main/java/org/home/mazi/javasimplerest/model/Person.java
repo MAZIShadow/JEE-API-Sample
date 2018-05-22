@@ -1,4 +1,4 @@
-package org.home.mazi.model;
+package org.home.mazi.javasimplerest.model;
 
 public class Person {
 

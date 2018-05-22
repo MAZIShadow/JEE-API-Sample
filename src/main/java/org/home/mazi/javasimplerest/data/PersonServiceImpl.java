@@ -1,6 +1,6 @@
-package org.home.mazi.data;
+package org.home.mazi.javasimplerest.data;
 
-import org.home.mazi.model.Person;
+import org.home.mazi.javasimplerest.model.Person;
 
 import java.util.Optional;
 

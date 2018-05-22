@@ -1,4 +1,4 @@
-package org.home.mazi;
+package org.home.mazi.javasimplerest;
 
 import liquibase.Liquibase;
 import liquibase.database.Database;

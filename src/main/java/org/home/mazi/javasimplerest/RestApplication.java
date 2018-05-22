@@ -1,4 +1,4 @@
-package org.home.mazi;
+package org.home.mazi.javasimplerest;
 
 
 import javax.ws.rs.ApplicationPath;

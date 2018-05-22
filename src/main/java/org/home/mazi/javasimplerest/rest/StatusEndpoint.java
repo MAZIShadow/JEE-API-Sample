@@ -1,4 +1,4 @@
-package org.home.mazi.rest;
+package org.home.mazi.javasimplerest.rest;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
