@@ -1,9 +1,34 @@
 package org.home.mazi.javasimplerest.data;
 
-import org.home.mazi.javasimplerest.model.Person;
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.home.mazi.javasimplerest.entity.Person;
 
-import java.util.Optional;
+/**
+ *
+ * @author User
+ */
+@Stateless
+public class PersonService {
+    
+    @PersistenceContext(unitName = "dev")
+    EntityManager em;
 
-public interface PersonService {
-    Optional<Person> getPerson(long id);
+    public Person findById(Long id) {
+        return this.em.find(Person.class, id);
+    }
+    
+    public List<Person> findAll() {
+        return this.em.createNamedQuery(Person.FIND_ALL).getResultList();
+    }
+
+    public void create(Person guestBook) {
+        this.em.merge(guestBook);
+    }
+
+    public void remove(Person person) {
+        this.em.remove(this.em.contains(person) ? person : this.em.merge(person));
+    }
 }

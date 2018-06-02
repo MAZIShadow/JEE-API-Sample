@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/status")
 public class StatusEndpoint {
-
+    
     @GET
     @Path("/health")
     public Response isUp() {

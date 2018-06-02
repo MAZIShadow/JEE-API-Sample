@@ -1,2 +1,4 @@
 /target/*
 /.idea/*
+/nbproject/
+/nb-configuration.xml
