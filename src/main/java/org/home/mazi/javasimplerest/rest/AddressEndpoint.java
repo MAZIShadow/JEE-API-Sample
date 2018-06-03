@@ -12,50 +12,50 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.home.mazi.javasimplerest.data.PersonService;
-import org.home.mazi.javasimplerest.entity.Person;
+import org.home.mazi.javasimplerest.data.AddressService;
+import org.home.mazi.javasimplerest.entity.Address;
 
 /**
  *
  * @author User
  */
-@Path("person")
+@Path("address")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-public class PersonEndpoint {
-    
+public class AddressEndpoint {
+
     @Inject
-    private PersonService personService;
+    private AddressService addressService;
 
     @GET
     @Path("all")
-    public List<Person> findAll() {
-        return personService.findAll();
+    public List<Address> findAll() {
+        return addressService.findAll();
     }
 
     @GET
     @Path("{id}")
-    public Person findPerson(@PathParam("id") Long id) {
-        return personService.findById(id);
+    public Address findPerson(@PathParam("id") Long id) {
+        return addressService.findById(id);
     }
 
     @POST
-    public Response save(@Valid Person person) {
-        this.personService.create(person);
+    public Response save(@Valid Address address) {
+        this.addressService.create(address);
 
         return Response.ok().build();
     }
 
     @DELETE
-    public Response delete(@Valid Person person) {
+    public Response delete(@Valid Address address) {
         
-        Person toDelete = this.personService.findById(person.getId());
+        Address toDelete = this.addressService.findById(address.getId());
         
         if (toDelete == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         
-        this.personService.remove(toDelete);
+        this.addressService.remove(toDelete);
 
         return Response.ok().build();
     }

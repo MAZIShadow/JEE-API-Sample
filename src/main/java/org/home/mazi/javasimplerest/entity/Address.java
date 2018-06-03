@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name = Address.FIND_ALL, query = "select ad from Address ad")
 public class Address implements Serializable {
 
-    public static final String FIND_ALL = "findAll";
+    public static final String FIND_ALL = "findAllAddress";
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

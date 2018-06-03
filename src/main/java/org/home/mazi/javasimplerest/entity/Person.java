@@ -3,12 +3,13 @@ package org.home.mazi.javasimplerest.entity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -19,7 +20,7 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name = Person.FIND_ALL, query = "select p from Person p")
 public class Person implements Serializable {
 
-    public static final String FIND_ALL = "findAll";
+    public static final String FIND_ALL = "findAllPerson";
     
     private static final long serialVersionUID = -2782643057099295327L;
     @Id
@@ -31,7 +32,7 @@ public class Person implements Serializable {
     @NotNull
     @Column(name = "last_name")
     private String lastName;
-    @OneToMany
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")
     private Address address;
 

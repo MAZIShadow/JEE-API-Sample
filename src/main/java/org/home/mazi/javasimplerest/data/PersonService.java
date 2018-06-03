@@ -13,7 +13,7 @@ import org.home.mazi.javasimplerest.entity.Person;
 @Stateless
 public class PersonService {
     
-    @PersistenceContext(unitName = "dev")
+    @PersistenceContext(unitName = "prod")
     EntityManager em;
 
     public Person findById(Long id) {
@@ -24,8 +24,8 @@ public class PersonService {
         return this.em.createNamedQuery(Person.FIND_ALL).getResultList();
     }
 
-    public void create(Person guestBook) {
-        this.em.merge(guestBook);
+    public void create(Person person) {
+        this.em.merge(person);
     }
 
     public void remove(Person person) {
