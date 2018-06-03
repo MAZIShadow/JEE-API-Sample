@@ -10,7 +10,6 @@
         <jta-data-source>java:/javaeeapi</jta-data-source>
         <properties>
             <property name="javax.persistence.schema-generation.database.action"/>
-            <!--<property name="wildfly.jpa.default-unit" value="true" />--> 
         </properties>
     </persistence-unit>
 </persistence>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog logicalFilePath="db.changelog-master.xml" xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="AddData_Address" author="MAZI_">
+        <insert tableName="address">
+            <column name="id" type="int" value="1"/>
+            <column name="street_name" type="varchar(256)" value="Elm Street" />
+            <column name="house_number" type="varchar(256)" value="1428" />
+        </insert>
+        <insert tableName="address">
+            <column name="id" type="int" value="2"/>
+            <column name="street_name" type="varchar(256)" value="Test Street" />
+            <column name="house_number" type="varchar(256)" value="12345" />
+            <column name="flat_number" type="int" value="54321" />
+        </insert>
+    </changeSet>
+    <changeSet id="AddData_Person" author="MAZI_">
+        <insert tableName="person">
+            <column name="id" type="int" value="1"/>
+            <column name="first_name" type="varchar(256)" value="Freddy" />
+            <column name="last_name" type="varchar(256)" value="Krueger" />
+            <column name="address_id" type="int" value="1" />
+        </insert>
+        <insert tableName="person">
+            <column name="id" type="int" value="2"/>
+            <column name="first_name" type="varchar(256)" value="FirstName" />
+            <column name="last_name" type="varchar(256)" value="LastName" />
+            <column name="address_id" type="int" value="2" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>
+ 
