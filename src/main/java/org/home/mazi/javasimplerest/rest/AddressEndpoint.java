@@ -1,5 +1,6 @@
 package org.home.mazi.javasimplerest.rest;
 
+import io.swagger.annotations.Api;
 import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -19,7 +20,8 @@ import org.home.mazi.javasimplerest.entity.Address;
  *
  * @author User
  */
-@Path("address")
+@Api(value = "address")
+@Path("/address")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class AddressEndpoint {
@@ -28,15 +30,21 @@ public class AddressEndpoint {
     private AddressService addressService;
 
     @GET
-    @Path("all")
+    @Path("/all")
     public List<Address> findAll() {
         return addressService.findAll();
     }
 
     @GET
-    @Path("{id}")
-    public Address findPerson(@PathParam("id") Long id) {
-        return addressService.findById(id);
+    @Path("/{id}")
+    public Response findPerson(@PathParam("id") Long id) {
+        Address address = addressService.findById(id);
+        
+        if (address == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        
+        return Response.ok(address).build();
     }
 
     @POST

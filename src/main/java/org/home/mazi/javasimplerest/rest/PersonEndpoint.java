@@ -1,5 +1,6 @@
 package org.home.mazi.javasimplerest.rest;
 
+import io.swagger.annotations.Api;
 import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import org.home.mazi.javasimplerest.entity.Person;
  *
  * @author User
  */
+@Api(value = "person")
 @Path("person")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
