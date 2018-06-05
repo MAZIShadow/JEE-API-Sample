@@ -1,6 +1,10 @@
 package org.home.mazi.javasimplerest.rest;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -20,44 +24,87 @@ import org.home.mazi.javasimplerest.entity.Person;
  *
  * @author User
  */
-@Api(value = "person")
+@Api(value = "person", description = "All operation of person")
 @Path("person")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class PersonEndpoint {
-    
+
     @Inject
     private PersonService personService;
 
     @GET
     @Path("all")
-    public List<Person> findAll() {
-        return personService.findAll();
+    @ApiOperation(value = "List of all people", response = Person.class, responseContainer = "List")
+    public Response findAll() {
+
+        List<Person> findAll = personService.findAll();
+
+        if (findAll == null || findAll.size() == 0) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.ok(findAll).build();
     }
 
     @GET
     @Path("{id}")
-    public Person findPerson(@PathParam("id") Long id) {
-        return personService.findById(id);
+    @ApiOperation(value = "Find person by id")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, response = Person.class, message = "Successful operation")
+        ,
+        @ApiResponse(code = 404, message = "Person not found")
+    })
+    public Response findPerson(@ApiParam(value = "Id of person", required = true) @PathParam("id") Long id) {
+
+        Person person = personService.findById(id);
+
+        if (person == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.ok(person).build();
     }
 
     @POST
-    public Response save(@Valid Person person) {
-        this.personService.create(person);
+    @ApiOperation(value = "Add person")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful operation")
+        ,
+        @ApiResponse(code = 400, message = "Unexpected error")
+    })
+    public Response save(@ApiParam(value = "Valid person JSON object") @Valid Person person) {
+        try {
+            this.personService.create(person);
+        } catch (Exception ex) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
 
         return Response.ok().build();
     }
 
     @DELETE
-    public Response delete(@Valid Person person) {
-        
+    @ApiOperation(value = "Remove person")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful operation")
+        ,
+        @ApiResponse(code = 404, message = "Person to remove not found")
+        ,
+        @ApiResponse(code = 400, message = "Unexpected error")
+    })
+    public Response delete(@ApiParam(value = "Valid person JSON object") @Valid Person person) {
+
         Person toDelete = this.personService.findById(person.getId());
-        
+
         if (toDelete == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        
-        this.personService.remove(toDelete);
+
+        try {
+            this.personService.remove(toDelete);
+        } catch (Exception ex) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
 
         return Response.ok().build();
     }

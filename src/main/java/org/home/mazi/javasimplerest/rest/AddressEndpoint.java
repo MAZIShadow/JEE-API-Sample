@@ -1,7 +1,10 @@
 package org.home.mazi.javasimplerest.rest;
 
 import io.swagger.annotations.Api;
-import java.util.List;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -20,7 +23,7 @@ import org.home.mazi.javasimplerest.entity.Address;
  *
  * @author User
  */
-@Api(value = "address")
+@Api(value = "address", description = "Operations about addresses")
 @Path("/address")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -31,39 +34,66 @@ public class AddressEndpoint {
 
     @GET
     @Path("/all")
-    public List<Address> findAll() {
-        return addressService.findAll();
+    @ApiOperation(value = "List of all adresses", response = Address.class, responseContainer = "List")
+    public Response findAll() {
+        return Response.ok(addressService.findAll()).build();
     }
 
     @GET
     @Path("/{id}")
-    public Response findPerson(@PathParam("id") Long id) {
+    @ApiOperation(value = "Find address by id")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful operation")
+        ,
+        @ApiResponse(code = 404, message = "Address not found")
+    })
+    public Response findPerson(@ApiParam(value = "id to find address", required = true) @PathParam("id") Long id) {
         Address address = addressService.findById(id);
-        
+
         if (address == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        
+
         return Response.ok(address).build();
     }
 
     @POST
-    public Response save(@Valid Address address) {
-        this.addressService.create(address);
+    @ApiOperation(value = "Add new address")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful operation")
+        ,
+        @ApiResponse(code = 400, message = "Operation fail")
+    })
+    public Response save(@ApiParam(value = "Valid Address JSON", required = true) @Valid Address address) {
+        try {
+            this.addressService.create(address);
+        } catch (Exception ex) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
 
         return Response.ok().build();
     }
 
     @DELETE
-    public Response delete(@Valid Address address) {
-        
+    @ApiOperation(value = "Remove address")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Successful operation")
+        ,
+        @ApiResponse(code = 400, message = "Operation fail")
+        ,
+        @ApiResponse(code = 404, message = "Address not found"),})
+    public Response delete(@ApiParam(value = "Valid Address JSON", required = true) @Valid Address address) {
+
         Address toDelete = this.addressService.findById(address.getId());
-        
+
         if (toDelete == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        
-        this.addressService.remove(toDelete);
+        try {
+            this.addressService.remove(toDelete);
+        } catch (Exception ex) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
 
         return Response.ok().build();
     }
