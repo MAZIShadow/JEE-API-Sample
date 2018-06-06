@@ -31,6 +31,6 @@ $ mvn clean install
     7b. Select builded our war file (javaeeapi-sample.war) and click 'Next'
     7c. Click 'Finish'
 
-Right now we deployed aplication.
+Right now we deployed the aplication.
 
 8. To check if aplication is working go to http://localhost:8080/javaeeapi-sample/swagger-ui/
