@@ -1,0 +1,191 @@
+{
+  "id": "85af5adf-0ede-4f99-8b5e-ae12c0773ba3",
+  "name": "javaeeapi-sample",
+  "requests": [
+    {
+      "id": "9f760bed-a320-40dc-8a6c-df758e9c6847",
+      "collectionId": "85af5adf-0ede-4f99-8b5e-ae12c0773ba3",
+      "method": "POST",
+      "url": "http://localhost:8080/javaeeapi-sample/api/address",
+      "headers": "Content-Type: application/json\n",
+      "dataMode": "urlencoded",
+      "data": [
+        {
+          "key": "streetName",
+          "value": "StreetName",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "houseNumber",
+          "value": "HouseName",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "flatNumber",
+          "value": "",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "id",
+          "value": "1",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "rawModeData": []
+    },
+    {
+      "id": "72574737-ea3e-48eb-a4f4-06ad249344f2",
+      "collectionId": "85af5adf-0ede-4f99-8b5e-ae12c0773ba3",
+      "method": "DELETE",
+      "url": "http://localhost:8080/javaeeapi-sample/api/address",
+      "headers": "Content-Type: application/json\n",
+      "dataMode": "urlencoded",
+      "data": [
+        {
+          "key": "id",
+          "value": "1",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "streetName",
+          "value": "test",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "houseNumber",
+          "value": "test",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "rawModeData": []
+    },
+    {
+      "id": "8f29027f-4635-4f70-a276-3ad4ac87fa75",
+      "collectionId": "85af5adf-0ede-4f99-8b5e-ae12c0773ba3",
+      "method": "GET",
+      "url": "http://localhost:8080/javaeeapi-sample/api/address/all",
+      "headers": "Content-Type: application/json\n",
+      "dataMode": "urlencoded",
+      "data": [
+        {
+          "key": "name",
+          "value": "hacker",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "created",
+          "value": "2017-01-01",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "rawModeData": []
+    },
+    {
+      "id": "1f7a38b5-dcac-4550-aa22-42bf0163645a",
+      "collectionId": "85af5adf-0ede-4f99-8b5e-ae12c0773ba3",
+      "method": "DELETE",
+      "url": "http://localhost:8080/javaeeapi-sample/api/person",
+      "headers": "Content-Type: application/json\n",
+      "dataMode": "urlencoded",
+      "data": [
+        {
+          "key": "firstName",
+          "value": "PersonFirstName",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "lastName",
+          "value": "PersonLastName",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "id",
+          "value": "1",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "rawModeData": []
+    },
+    {
+      "id": "fbff60b9-88b1-42e6-bbf9-aa7f96d0cdf0",
+      "collectionId": "85af5adf-0ede-4f99-8b5e-ae12c0773ba3",
+      "method": "POST",
+      "url": "http://localhost:8080/javaeeapi-sample/api/person",
+      "headers": "Content-Type: application/json\n",
+      "dataMode": "urlencoded",
+      "data": [
+        {
+          "key": "firstName",
+          "value": "PersonFirstName",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "lastName",
+          "value": "PersonLastName",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "rawModeData": []
+    },
+    {
+      "id": "6ca4dba5-52ae-4b88-b69b-06cd051da09e",
+      "collectionId": "85af5adf-0ede-4f99-8b5e-ae12c0773ba3",
+      "method": "GET",
+      "url": "http://localhost:8080/javaeeapi-sample/api/person/all",
+      "headers": "Content-Type: application/json\n",
+      "dataMode": "urlencoded",
+      "data": [
+        {
+          "key": "name",
+          "value": "hacker",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "created",
+          "value": "2017-01-01",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "rawModeData": []
+    },
+    {
+      "id": "ef0b0b7e-f30e-4433-a784-1e1e80b792fa",
+      "collectionId": "85af5adf-0ede-4f99-8b5e-ae12c0773ba3",
+      "method": "GET",
+      "url": "http://localhost:8080/javaeeapi-sample/api/status/health",
+      "headers": "Content-Type: application/json\n",
+      "dataMode": "urlencoded",
+      "data": [
+        {
+          "key": "name",
+          "value": "hacker",
+          "type": "text",
+          "enabled": true
+        },
+        {
+          "key": "created",
+          "value": "2017-01-01",
+          "type": "text",
+          "enabled": true
+        }
+      ],
+      "rawModeData": []
+    }
+  ]
+}
