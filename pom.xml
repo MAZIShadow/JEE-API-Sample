@@ -8,6 +8,16 @@
     <artifactId>javaeeapi-sample</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
+    
+    <properties>
+        <mysql.connection-url>jdbc:mysql://localhost:3306/javaeeapi</mysql.connection-url>
+        <mysql-connector-java.version>5.1.46</mysql-connector-java.version>
+        <mysql.username>root</mysql.username>
+        <mysql.password></mysql.password>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+    </properties>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/javax/javaee-api -->
@@ -20,7 +30,8 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.11</version>
+            <version>${mysql-connector-java.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.swagger</groupId>
@@ -36,7 +47,9 @@
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>3.5.3</version>
                 <configuration>
-                    <propertyFile>src/main/resources/liquibase/liquibase.properties</propertyFile>
+                    <changeLogFile>src/main/resources/liquibase/db.changelog-master.xml</changeLogFile>
+                    <url>${mysql.connection-url}?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</url>
+                    <username>${mysql.username}</username>
                 </configuration>
                 <executions>
                     <execution>
@@ -47,22 +60,42 @@
                     </execution>
                 </executions>
             </plugin>
-<!--            <plugin>
+            <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>1.2.1.Final</version>
+                <configuration>
+                    <add-user>
+                        <users>
+                            <user>
+                                <username>admin</username>
+                                <password>admin.1234</password>
+                            </user>
+                        </users>
+                    </add-user>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>deploy-mysql</id>
+                        <id>start-server</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>deploy-artifact</goal>
+                            <goal>start</goal>
                         </goals>
+                    </execution>
+                    <!-- Add Driver JDBC MySql to server -->
+                    <execution>
+                        <id>deploy-driver</id>
+                        <phase>package</phase>
                         <configuration>
                             <groupId>mysql</groupId>
                             <artifactId>mysql-connector-java</artifactId>
-                            <name>mysql-connector-java-5.1.46-bin.jar</name>
+                            <version>${mysql-connector-java.version}</version>
+                            <name>mysql-connector-java-${mysql-connector-java.version}</name>
+                            <driver-name>mysql-connector-java-${mysql-connector-java.version}</driver-name>
                         </configuration>
+                        <goals>
+                            <goal>deploy-artifact</goal>
+                        </goals>
                     </execution>
                     <execution>
                         <id>add-datasource</id>
@@ -71,35 +104,30 @@
                             <goal>add-resource</goal>
                         </goals>
                         <configuration>
+                            <force>true</force>
                             <address>subsystem=datasources,data-source=java:/javaeeapi</address>
                             <resources>
                                 <resource>
                                     <properties>
                                         <jndi-name>java:/javaeeapi</jndi-name>
                                         <enabled>true</enabled>
-                                        <connection-url>jdbc:mysql://localhost:3306/javaeeapi</connection-url>
-                                        <driver-class>com.mysql.cj.jdbc.Driver</driver-class>
-                                        <schema>javaeeapi</schema>
-                                        <user-name>root</user-name>
-                                        <password></password>
+                                        <connection-url>${mysql.connection-url}</connection-url>
+                                        <driver-name>mysql-connector-java-${mysql-connector-java.version}_com.mysql.jdbc.Driver_5_1</driver-name>
+                                        <user-name>${mysql.username}</user-name>
                                     </properties>
                                 </resource>
                             </resources>
                         </configuration>
                     </execution>
                     <execution>
+                        <id>deploy-application</id>
                         <phase>install</phase>
                         <goals>
                             <goal>deploy</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
         </plugins>
     </build>
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <failOnMissingWebXml>false</failOnMissingWebXml>
-    </properties>
 </project>
